@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // app.engine('html', require('ejs').renderFile);
 
-
+require('dotenv').config();
 const hbs = require('hbs');
 
 
@@ -26,6 +26,7 @@ const partialspath = path.join(__dirname, '/dynamic/partials');
 app.use(express.static(publicpath)); //Static pages
 hbs.registerPartials(partialspath);
 
+console.log(process.env);
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -39,8 +40,8 @@ app.post('/send-email', function (req, res) {
     let transporter = nodeMailer.createTransport({
         service: "Gmail",
         auth: {
-            user: 'ashishboss9977@gmail.com',
-            pass: 'SAWARNsushma'
+            user: process.env.user,
+            pass: process.env.pass
         }
     });
     let mailOptions = {
