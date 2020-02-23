@@ -46,7 +46,7 @@ app.post('/contact', function (req, res) {
 
         host: "smtp.gmail.com",
         auth: {
-            type = 'login',
+            // type = 'login',
             user: process.env.user,
             pass: process.env.pass
 
