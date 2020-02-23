@@ -43,10 +43,13 @@ app.post('/contact', function (req, res) {
 
 
     let transporter = nodeMailer.createTransport({
-        service: "Gmail",
+
+        host: "smtp.gmail.com",
         auth: {
+            type = 'login',
             user: process.env.user,
             pass: process.env.pass
+
         }
     });
     let mailOptions = {
