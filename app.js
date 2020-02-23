@@ -26,17 +26,22 @@ const partialspath = path.join(__dirname, '/dynamic/partials');
 app.use(express.static(publicpath)); //Static pages
 hbs.registerPartials(partialspath);
 
-console.log(process.env);
+
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index.html');
 
 }).listen(port, () => {
     console.log("Server start at port 8080");
 });
 
 
-app.post('/send-email', function (req, res) {
+
+
+
+app.post('/contact', function (req, res) {
+
+
     let transporter = nodeMailer.createTransport({
         service: "Gmail",
         auth: {
@@ -45,18 +50,19 @@ app.post('/send-email', function (req, res) {
         }
     });
     let mailOptions = {
-        from: '"Ashish Bhagwan"<ashishboss9977@gmail.com>', // sender address
+        from: '"Codeasg"<nodeashish@gmail.com>', // sender address
         to: 'code.asg@protonmail.com', // list of receivers
-        subject: "Hello", // Subject line
-        text: "Heyyyyy", // plain text body
-        html: '<b>NodeJS Email Tutorial</b>' // html body
+        subject: req.body.name, // Subject line
+        text: req.body.text, // plain text body
+        // html: '<b>NodeJS Email Tutorial</b>' // html body
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(error);
         }
-        console.log('Message %s sent: %s', info.messageId, info.response);
-        res.render('index');
+        // console.log('Message %s sent: %s', info.messageId, info.response);
+
+        res.redirect('contact.html');
     });
 });
