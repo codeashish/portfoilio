@@ -3,7 +3,7 @@ var app = express();
 
 var nodeMailer = require('nodemailer');
 const path = require('path');
-var port = process.env.PORT || 8080;
+var Port = process.env.PORT || 8080;
 var cors = require('cors');
 var bodyParser = require('body-parser');
 
@@ -31,7 +31,7 @@ hbs.registerPartials(partialspath);
 app.get('/', (req, res) => {
     res.render('index.html');
 
-}).listen(port, () => {
+}).listen(Port, () => {
     console.log("Server start at port 8080");
 });
 
@@ -45,6 +45,7 @@ app.post('/contact', function (req, res) {
     let transporter = nodeMailer.createTransport({
 
         host: "smtp.gmail.com",
+        port: 587,
         auth: {
             // type = 'login',
             user: process.env.user,
@@ -64,7 +65,7 @@ app.post('/contact', function (req, res) {
         if (error) {
             return console.log(error);
         }
-        // console.log('Message %s sent: %s', info.messageId, info.response);
+        console.log('Message %s sent: %s', info.messageId, info.response);
 
         res.redirect('contact.html');
     });
