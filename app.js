@@ -11,6 +11,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+
+
+
+
 // app.engine('html', require('ejs').renderFile);
 
 require('dotenv').config();
@@ -42,23 +47,41 @@ app.get('/', (req, res) => {
 app.post('/contact', function (req, res) {
 
 
+
+
+    const output = `  <p>A new request</p>
+<h3>Conatct Details</h3>
+<li>Name:${req.body.name}</li>
+<li>Number:${req.body.number}</li>
+<li>Text:${req.body.text}</li>
+<li>Email:${req.body.mail}</li>
+`;
+
+
+
     let transporter = nodeMailer.createTransport({
 
         host: "smtp.gmail.com",
-        port: 587,
+
         auth: {
             // type = 'login',
+
+            type: 'OAuth2',
             user: process.env.user,
-            pass: process.env.pass
+            // pass: process.env.pass,
+            clientId: process.env.clientid,
+            clientSecret: process.env.clientsecret,
+            refreshToken: process.env.refreshtoken,
+            accessToken: process.env.accesstoken,
 
         }
     });
     let mailOptions = {
         from: '"Codeasg"<nodeashish@gmail.com>', // sender address
         to: 'code.asg@protonmail.com', // list of receivers
-        subject: req.body.name, // Subject line
+        subject: "Portfolio Request", // Subject line
         text: req.body.text, // plain text body
-        // html: '<b>NodeJS Email Tutorial</b>' // html body
+        html: output // html body
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
