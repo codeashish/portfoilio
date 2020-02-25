@@ -54,7 +54,7 @@ app.post('/contact', function (req, res) {
 <li>Name:${req.body.name}</li>
 <li>Number:${req.body.number}</li>
 <li>Text:${req.body.text}</li>
-<li>Email:${req.body.mail}</li>
+<li>Email:${req.body.email}</li>
 `;
 
 
