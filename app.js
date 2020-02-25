@@ -62,13 +62,13 @@ app.post('/contact', function (req, res) {
     let transporter = nodeMailer.createTransport({
 
         host: "smtp.gmail.com",
-
+        secure: false,
         auth: {
             // type = 'login',
 
             type: 'OAuth2',
             user: process.env.user,
-            // pass: process.env.pass,
+            pass: process.env.pass,
             clientId: process.env.clientid,
             clientSecret: process.env.clientsecret,
             refreshToken: process.env.refreshtoken,
